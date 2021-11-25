@@ -7,11 +7,10 @@ import { AntDesign } from '@expo/vector-icons';
 
 const IndexScreen = ({navigation}) => {
     
-    const {state, addBlogPost, deleteBlogPost} = useContext(Context);
+    const {state, deleteBlogPost} = useContext(Context);
 
     return (
         <View>
-            <Button  title="Add post" onPress={() => addBlogPost()} />
             <FlatList 
                 data={state}
                 keyExtractor={blogPosts => blogPosts.id}
@@ -19,7 +18,7 @@ const IndexScreen = ({navigation}) => {
                     return (
                     <TouchableOpacity onPress={() => navigation.navigate("Show", {id: item.id})}>
                         <View style={styles.row}>
-                            <Text style={styles.title}>{item.title}</Text>
+                            <Text style={styles.title}>{item.title} - {item.id}</Text>
                         <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                             <EvilIcons style={styles.icon} name="trash" />
                         </TouchableOpacity>

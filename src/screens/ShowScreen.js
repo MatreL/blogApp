@@ -1,6 +1,7 @@
-import React, {useContext} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, {useContext, useState} from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Context } from '../context/BlogContext';
+import { Entypo } from '@expo/vector-icons'; 
 
 const ShowScreen = ({navigation}) => {
 
@@ -10,11 +11,31 @@ const ShowScreen = ({navigation}) => {
 
   return (
     <View>
-      <Text>{blogPost.title}</Text>
+      <Text>{blogPost.title} - {blogPost.id}</Text>
+      <Text>{blogPost.content}</Text>
     </View>
   )
+};
+
+ShowScreen.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity 
+        style={styles.headerIcon} 
+        onPress={() => 
+          navigation.navigate('Edit', {id: navigation.getParam("id") })
+        }
+          >
+        <Entypo name="edit" size={24} color="black" />
+      </TouchableOpacity>
+    ),
+  };
 }
 
 export default ShowScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  headerIcon: {
+    marginRight: 20
+}
+})
